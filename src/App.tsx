@@ -1,15 +1,19 @@
 import React from 'react';
-import Card from './components/Card';
+import Card, { CardVariant } from './components/Card';
 
-function App() {
+const App: React.FC = () => {
     return (
         <div className="App">
-            <Card width="200px" height="90px">
-                <button>Click me</button>
-                <div>fdgfdg</div>
+            <Card
+                onClick={(num) => console.log('meow', num)}
+                width="200px"
+                height="200px"
+                variant={CardVariant.outlined}
+            >
+                <button>click me</button>
             </Card>
         </div>
     );
-}
+};
 
 export default App;
