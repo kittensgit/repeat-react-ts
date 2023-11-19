@@ -3,9 +3,11 @@ import React, { FC, useEffect, useState } from 'react';
 import { ITodo } from '../types/types';
 import TodoItem from '../components/TodoItem';
 import List from '../components/List';
+import { useNavigate } from 'react-router-dom';
 
 const TodosPage: FC = () => {
     const [todos, setTodos] = useState<ITodo[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchTodo();
@@ -27,7 +29,11 @@ const TodosPage: FC = () => {
             <List
                 items={todos}
                 renderItem={(todo: ITodo) => (
-                    <TodoItem todo={todo} key={todo.id} />
+                    <TodoItem
+                        onClick={(todo) => navigate(`/todos/${todo.id}`)}
+                        todo={todo}
+                        key={todo.id}
+                    />
                 )}
             />
         </div>
