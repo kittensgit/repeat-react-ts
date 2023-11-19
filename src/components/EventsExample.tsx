@@ -1,15 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 
 const EventsExample: FC = () => {
     const [value, setValue] = useState<string>('');
     const [isDrag, setIsDrag] = useState<boolean>(false); // элеминт в поле квадарата или нет
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue(e.target.value);
     };
 
     const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-        console.log(value);
+        console.log('controlled input', value);
+        console.log('uncontrolled input', inputRef.current?.value);
     };
 
     const dragHandler = (e: React.DragEvent<HTMLDivElement>) => {
@@ -29,7 +31,17 @@ const EventsExample: FC = () => {
 
     return (
         <div>
-            <input value={value} onChange={changeHandler} type="text" />
+            <input
+                placeholder="controlled input"
+                value={value}
+                onChange={changeHandler}
+                type="text"
+            />
+            <input
+                placeholder="uncontrolled input"
+                ref={inputRef}
+                type="text"
+            />
             <button onClick={clickHandler}>click</button>
             <div
                 onDrag={dragHandler}
